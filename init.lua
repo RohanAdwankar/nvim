@@ -10,6 +10,16 @@ vim.opt.tabstop = 2
 vim.opt.smartindent = true
 vim.opt.wrap = false
 vim.api.nvim_set_keymap('i', 'ii', '<Esc>', { noremap = true })
+vim.keymap.set("n", "<leader>tt", ":belowright split | terminal<CR>")
+vim.keymap.set("n", "<leader>h", "<C-w>h")
+vim.keymap.set("n", "<leader>j", "<C-w>j")
+vim.keymap.set("n", "<leader>k", "<C-w>k")
+vim.keymap.set("n", "<leader>l", "<C-w>l")
+vim.keymap.set("t", "<leader>h", [[<C-\><C-n><C-w>h]])
+vim.keymap.set("t", "<leader>j", [[<C-\><C-n><C-w>j]])
+vim.keymap.set("t", "<leader>k", [[<C-\><C-n><C-w>k]])
+vim.keymap.set("t", "<leader>l", [[<C-\><C-n><C-w>l]])
+
 vim.opt.rtp:prepend("~/.config/nvim/lazy/lazy.nvim")
 
 require("lazy").setup({
