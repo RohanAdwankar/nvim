@@ -9,22 +9,29 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.smartindent = true
 vim.opt.wrap = false
+
 vim.api.nvim_set_keymap('i', 'ii', '<Esc>', { noremap = true })
+
+vim.keymap.set('n', 'j', 'h', { noremap = true })
+vim.keymap.set('n', 'k', 'j', { noremap = true })
+vim.keymap.set('n', 'l', 'k', { noremap = true })
+vim.keymap.set('n', ';', 'l', { noremap = true })
+vim.keymap.set('v', 'j', 'h', { noremap = true })
+vim.keymap.set('v', 'k', 'j', { noremap = true })
+vim.keymap.set('v', 'l', 'k', { noremap = true })
+vim.keymap.set('v', ';', 'l', { noremap = true })
+
 vim.keymap.set("n", "<leader>tt", ":belowright split | terminal<CR>")
-vim.keymap.set("n", "<leader>h", "<C-w>h")
-vim.keymap.set("n", "<leader>j", "<C-w>j")
-vim.keymap.set("n", "<leader>k", "<C-w>k")
-vim.keymap.set("n", "<leader>l", "<C-w>l")
-vim.keymap.set("t", "<leader>h", [[<C-\><C-n><C-w>h]])
-vim.keymap.set("t", "<leader>j", [[<C-\><C-n><C-w>j]])
-vim.keymap.set("t", "<leader>k", [[<C-\><C-n><C-w>k]])
-vim.keymap.set("t", "<leader>l", [[<C-\><C-n><C-w>l]])
+vim.keymap.set("n", "<leader>j", "<C-w>h")
+vim.keymap.set("n", "<leader>k", "<C-w>j")
+vim.keymap.set("n", "<leader>l", "<C-w>k")
+vim.keymap.set("n", "<leader>;", "<C-w>l")
 
 vim.opt.rtp:prepend("~/.config/nvim/lazy/lazy.nvim")
 
 require("lazy").setup({
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-  { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
+  { "nvim-tree/nvim-tree.lua",   dependencies = { "nvim-tree/nvim-web-devicons" } },
   { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
   { "lewis6991/gitsigns.nvim" },
 })
