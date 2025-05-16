@@ -62,7 +62,7 @@ map("n", "<leader>e", ":NvimTreeToggle<CR>",                    { silent = true 
 -- Mason & LSPInstaller
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "gopls", "pyright", "tsserver" },
+  ensure_installed = { "gopls", "pyright", "ts_ls" },
 })
 
 -- LSP configuration
@@ -91,7 +91,7 @@ lspconfig.gopls.setup({
   },
 })
 
--- JavaScript/TypeScript (tsserver)
-lspconfig.tsserver.setup({
+-- JavaScript/TypeScript (ts_ls)
+lspconfig.ts_ls.setup({
   on_attach = on_attach,
 })
