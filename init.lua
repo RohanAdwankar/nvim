@@ -14,7 +14,6 @@ vim.opt.smartindent       = true
 vim.opt.wrap              = false
 
 -- True Color & Syntax Highlighting
-vim.opt.termguicolors = false
 vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
 vim.opt.synmaxcol = 200
@@ -45,10 +44,6 @@ require("lazy").setup({
   { "nvim-lualine/lualine.nvim",  dependencies = { "nvim-tree/nvim-web-devicons" } },
   { "lewis6991/gitsigns.nvim" },
   
-  -- ─── Basic Color Scheme ───────────────────────────────────────────────────────
-  { "NLKNguyen/papercolor-theme" }, -- Bright, high contrast theme that works in terminals
-  { "lifepillar/vim-solarized8" },  -- Terminal-friendly version of Solarized
-  
   -- ─── LSP & Tooling ──────────────────────────────────────────────────────
   { "williamboman/mason.nvim",           build        = ":MasonUpdate" },
   { "williamboman/mason-lspconfig.nvim", dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" } },
@@ -71,7 +66,7 @@ require("lazy").setup({
 
 -- Basic Colorscheme (high contrast, terminal-friendly)
 vim.opt.background = "dark"
-vim.cmd[[colorscheme PaperColor]]
+vim.cmd[[colorscheme habamax]]
 
 -- Plugin Setups
 require("lualine").setup()
