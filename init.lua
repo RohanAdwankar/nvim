@@ -3,18 +3,21 @@
 -- Leader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.opt.number            = true
+vim.opt.relativenumber    = true
+vim.opt.mouse             = "a"
+vim.opt.clipboard         = "unnamedplus"
+vim.opt.expandtab         = true
+vim.opt.shiftwidth        = 2
+vim.opt.tabstop           = 2
+vim.opt.smartindent       = true
+vim.opt.wrap              = false
 
--- Basic options
-vim.opt.number         = true
-vim.opt.relativenumber = true
-vim.opt.mouse          = "a"
-vim.opt.clipboard      = "unnamedplus"
-vim.opt.expandtab      = true
-vim.opt.shiftwidth     = 2
-vim.opt.tabstop        = 2
-vim.opt.smartindent    = true
-vim.opt.wrap           = false
-
+-- True Color & Syntax Highlighting
+vim.opt.termguicolors = false
+vim.cmd('syntax on')
+vim.cmd('filetype plugin indent on')
+vim.opt.synmaxcol = 200
 -- Keymaps
 vim.api.nvim_set_keymap('i', 'ii', '<Esc>', { noremap = true, silent = true })
 
@@ -41,17 +44,39 @@ require("lazy").setup({
   { "nvim-tree/nvim-tree.lua",    dependencies = { "nvim-tree/nvim-web-devicons" } },
   { "nvim-lualine/lualine.nvim",  dependencies = { "nvim-tree/nvim-web-devicons" } },
   { "lewis6991/gitsigns.nvim" },
-
-  -- LSP & tooling
-  { "williamboman/mason.nvim",             build        = ":MasonUpdate" },
-  { "williamboman/mason-lspconfig.nvim",   dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" } },
-  { "neovim/nvim-lspconfig",               dependencies = { "williamboman/mason.nvim" } },
+  
+  -- ─── Basic Color Scheme ───────────────────────────────────────────────────────
+  { "NLKNguyen/papercolor-theme" }, -- Bright, high contrast theme that works in terminals
+  { "lifepillar/vim-solarized8" },  -- Terminal-friendly version of Solarized
+  
+  -- ─── LSP & Tooling ──────────────────────────────────────────────────────
+  { "williamboman/mason.nvim",           build        = ":MasonUpdate" },
+  { "williamboman/mason-lspconfig.nvim", dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" } },
+  { "neovim/nvim-lspconfig",             dependencies = { "williamboman/mason.nvim" } },
+  
+  -- ─── Treesitter (Enhanced Syntax) ───────────────────────────────────────
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup {
+        ensure_installed = { "lua", "python", "go", "typescript" },
+        highlight = { 
+          enable = true,
+        },
+      }
+    end,
+  },
 })
 
--- Plugin setups
-require('lualine').setup()
-require('nvim-tree').setup()
-require('gitsigns').setup()
+-- Basic Colorscheme (high contrast, terminal-friendly)
+vim.opt.background = "dark"
+vim.cmd[[colorscheme PaperColor]]
+
+-- Plugin Setups
+require("lualine").setup()
+require("nvim-tree").setup()
+require("gitsigns").setup()
 
 -- Telescope keymaps
 map("n", "<leader>ff", require("telescope.builtin").find_files, {})
