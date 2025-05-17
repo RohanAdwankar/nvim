@@ -13,6 +13,10 @@ vim.opt.tabstop           = 2
 vim.opt.smartindent       = true
 vim.opt.wrap              = false
 
+-- Indent-based folding
+vim.opt.foldmethod      = "indent"
+vim.opt.foldlevelstart  = 99
+
 -- True Color & Syntax Highlighting
 vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
