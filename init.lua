@@ -21,8 +21,9 @@ vim.opt.foldlevelstart  = 99
 vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
 vim.opt.synmaxcol = 200
+
 -- Keymaps
-vim.api.nvim_set_keymap('i', 'ii', '<Esc>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', 'jj', '<Esc>', { noremap = true, silent = true })
 
 local map = vim.keymap.set
 -- Window navigation (normal mode)
