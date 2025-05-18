@@ -67,9 +67,18 @@ require("lazy").setup({
       }
     end,
   },
+
+  --dev tools
+  {
+  "CopilotC-Nvim/CopilotChat.nvim",
+	  dependencies = {
+	    "github/copilot.vim",
+	    "nvim-lua/plenary.nvim"
+	  }
+  },
 })
 
--- Basic Colorscheme (high contrast, terminal-friendly)
+-- Basic Colorscheme
 vim.opt.background = "dark"
 vim.cmd[[colorscheme habamax]]
 
@@ -77,6 +86,7 @@ vim.cmd[[colorscheme habamax]]
 require("lualine").setup()
 require("nvim-tree").setup()
 require("gitsigns").setup()
+require("CopilotChat").setup()
 
 -- Telescope keymaps
 map("n", "<leader>ff", require("telescope.builtin").find_files, {})
