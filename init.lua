@@ -86,7 +86,12 @@ vim.cmd[[colorscheme habamax]]
 require("lualine").setup()
 require("nvim-tree").setup()
 require("gitsigns").setup()
-require("CopilotChat").setup()
+require("CopilotChat").setup({
+  context = {"files"},
+  sticky = {"@claude-3.7-sonnet", "#files", "#buffers"},
+})
+
+map("n", ";c", "<cmd>CopilotChatToggle<CR>", { noremap = true, silent = true })
 
 -- Telescope keymaps
 map("n", "<leader>ff", require("telescope.builtin").find_files, {})
