@@ -39,6 +39,14 @@ map("t", "<leader>l", [[<C-\><C-n><C-w>l]])
 -- Open terminal split
 map("n", "<leader>tt", ":belowright split | terminal<CR>", { silent = true })
 
+-- Scratch buffer for messing around
+vim.api.nvim_create_user_command("Scratch", function()
+  vim.cmd("enew")
+  vim.opt_local.buftype = "nofile"
+  vim.opt_local.bufhidden = "wipe"
+  vim.opt_local.swapfile = false
+end, {})
+
 -- Bootstrap lazy.nvim
 vim.opt.rtp:prepend("~/.config/nvim/lazy/lazy.nvim")
 
