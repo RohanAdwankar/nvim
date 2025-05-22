@@ -121,6 +121,14 @@ local on_attach = function(client, bufnr)
   local opts   = { noremap = true, silent = true }
   bufmap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
   bufmap(bufnr, "n", "K",  "<cmd>lua vim.lsp.buf.hover()<CR>",      opts)
+if client.server_capabilities.documentFormattingProvider then
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    buffer = bufnr,
+    callback = function()
+      vim.lsp.buf.format()
+    end,
+  })
+end
 end
 
 -- Python (Pyright)
