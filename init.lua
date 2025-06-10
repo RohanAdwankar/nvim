@@ -110,7 +110,7 @@ map("n", "<leader>e", ":NvimTreeToggle<CR>",                    { silent = true 
 -- Mason & LSPInstaller
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "gopls", "pyright", "ts_ls" },
+  ensure_installed = { "gopls", "pyright", "ts_ls", "rust_analyzer" },
 })
 
 -- LSP configuration
@@ -149,5 +149,10 @@ lspconfig.gopls.setup({
 
 -- JavaScript/TypeScript (ts_ls)
 lspconfig.ts_ls.setup({
+  on_attach = on_attach,
+})
+
+-- Rust (rust_analyzer)
+lspconfig.rust_analyzer.setup({
   on_attach = on_attach,
 })
