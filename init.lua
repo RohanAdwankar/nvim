@@ -106,8 +106,10 @@ require("lualine").setup()
 require("nvim-tree").setup()
 require("gitsigns").setup()
 require("CopilotChat").setup({
-  context = {"files"},
-  sticky = {"@claude-3.7-sonnet", "#files", "#buffers"},
+  sticky = {"@claude-3.7-sonnet","buffers"},
+  selection = function(source)
+    return require("CopilotChat.select").buffer(source)
+  end,
 })
 
 map("n", ";c", "<cmd>CopilotChatToggle<CR>", { noremap = true, silent = true })
