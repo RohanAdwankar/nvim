@@ -89,11 +89,12 @@ require("lazy").setup({
 
   --dev tools
   {
-  "CopilotC-Nvim/CopilotChat.nvim",
-	  dependencies = {
-	    "github/copilot.vim",
-	    "nvim-lua/plenary.nvim"
-	  }
+    "CopilotC-Nvim/CopilotChat.nvim",
+    tag = "v2.0.0",
+    dependencies = {
+      "github/copilot.vim",
+      "nvim-lua/plenary.nvim"
+    },
   },
 })
 
@@ -106,7 +107,8 @@ require("lualine").setup()
 require("nvim-tree").setup()
 require("gitsigns").setup()
 require("CopilotChat").setup({
-  sticky = {"@claude-3.7-sonnet","buffers"},
+  debug = false,
+  sticky = {"@claude-4.0-sonnet","buffers"},
   selection = function(source)
     return require("CopilotChat.select").buffer(source)
   end,
