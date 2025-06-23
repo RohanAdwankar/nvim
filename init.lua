@@ -92,7 +92,7 @@ vim.cmd[[colorscheme habamax]]
 
 -- Plugin Setups
 require("lualine").setup()
-require("nvim-tree").setup()
+require("nvim-tree").setup({update_focused_file = { enable = true }})
 require("gitsigns").setup()
 require("CopilotChat").setup({
   context = {"files"},
