@@ -38,6 +38,9 @@ map("t", "<leader>k", [[<C-\><C-n><C-w>k]])
 map("t", "<leader>l", [[<C-\><C-n><C-w>l]])
 -- Open terminal split
 map("n", "<leader>tt", ":belowright split | terminal<CR>", { silent = true })
+-- Buffer navigation
+map("n", "<Space>n", "<C-i>")
+map("n", "<Space>m", "<C-o>")
 
 -- Scratch buffer for messing around
 vim.api.nvim_create_user_command("Scratch", function()
