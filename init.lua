@@ -38,6 +38,9 @@ map("t", "<leader>k", [[<C-\><C-n><C-w>k]])
 map("t", "<leader>l", [[<C-\><C-n><C-w>l]])
 -- Open terminal split
 map("n", "<leader>tt", ":belowright split | terminal<CR>", { silent = true })
+-- Buffer navigation (between different files)
+map('n', '<Space>n', ':bnext<CR>')
+map('n', '<Space>m', ':bprevious<CR>')
 
 -- Scratch buffer for messing around
 vim.api.nvim_create_user_command("Scratch", function()
@@ -67,6 +70,9 @@ require("lazy").setup({
   { "nvim-tree/nvim-tree.lua",    dependencies = { "nvim-tree/nvim-web-devicons" } },
   { "nvim-lualine/lualine.nvim",  dependencies = { "nvim-tree/nvim-web-devicons" } },
   { "lewis6991/gitsigns.nvim" },
+  
+  -- Commenting
+  { "numToStr/Comment.nvim", config = true },
   
   -- ─── LSP & Tooling ──────────────────────────────────────────────────────
   { "williamboman/mason.nvim",           build        = ":MasonUpdate" },
@@ -104,11 +110,11 @@ vim.cmd[[colorscheme habamax]]
 
 -- Plugin Setups
 require("lualine").setup()
-require("nvim-tree").setup()
+require("nvim-tree").setup({git={ignore=false},filters={dotfiles=false},update_focused_file = {enable = true}})
 require("gitsigns").setup()
 require("CopilotChat").setup({
   debug = false,
-  sticky = {"@claude-4.0-sonnet","buffers"},
+  sticky = {"@claude-4.0-sonnet","#buffers"},
   selection = function(source)
     return require("CopilotChat.select").buffer(source)
   end,
