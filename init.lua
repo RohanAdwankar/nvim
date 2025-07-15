@@ -110,7 +110,38 @@ vim.cmd[[colorscheme habamax]]
 
 -- Plugin Setups
 require("lualine").setup()
-require("nvim-tree").setup({git={ignore=false},filters={dotfiles=false},update_focused_file = {enable = true}})
+require("nvim-tree").setup({
+  git={ignore=false},
+  filters={dotfiles=false},
+  update_focused_file = {enable = true},
+  on_attach = function(bufnr)
+    local api = require("nvim-tree.api")
+    
+    -- Default mappings
+    api.config.mappings.default_on_attach(bufnr)
+    
+    -- Custom mappings
+    local function opts(desc)
+      return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    end
+    
+    -- Open file in horizontal split
+    vim.keymap.set('n', 'o', function()
+      local node = api.tree.get_node_under_cursor()
+      if node.type == "file" then
+        api.node.open.horizontal()
+      end
+    end, opts('Open: Horizontal Split'))
+    
+    -- Open file in vertical split
+    vim.keymap.set('n', 'O', function()
+      local node = api.tree.get_node_under_cursor()
+      if node.type == "file" then
+        api.node.open.vertical()
+      end
+    end, opts('Open: Vertical Split'))
+  end
+})
 require("gitsigns").setup()
 require("CopilotChat").setup({
   debug = false,
