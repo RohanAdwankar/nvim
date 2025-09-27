@@ -1,0 +1,14 @@
+{
+  "keyMappings": "map l nextTab\nmap h previousTab",
+  "settingsVersion": "2.3",
+  "exclusionRules": [
+    {
+      "passKeys": "",
+      "pattern": "https?://leetcode.com/problems/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://www.youtube.com/*"
+    }
+  ]
+}
