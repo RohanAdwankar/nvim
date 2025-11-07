@@ -102,7 +102,10 @@ require("lazy").setup({
 
 -- Basic Colorscheme
 vim.opt.background = "dark"
-vim.cmd[[colorscheme habamax]]
+local default_colorschemes = { "habamax", "elflord", "evening", "industry", "koehler", "murphy", "pablo", "ron", "slate", "torte", "desert", "blue", "darkblue","retrobox","quiet"}
+math.randomseed(os.time())
+local chosen = default_colorschemes[math.random(#default_colorschemes)]
+vim.cmd("colorscheme " .. chosen)
 
 -- Plugin Setups
 require("lualine").setup()
