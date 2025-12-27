@@ -24,6 +24,8 @@ vim.opt.synmaxcol = 200
 
 -- Keymaps
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', { noremap = true, silent = true })
+vim.cmd('cnoreabbrev W w')
+vim.cmd('cnoreabbrev Wq wq')
 
 local map = vim.keymap.set
 -- Window navigation (normal mode)
@@ -90,32 +92,33 @@ require("lazy").setup({
     end,
   },
 
-  --dev tools
-  {
-  "CopilotC-Nvim/CopilotChat.nvim",
-	  dependencies = {
-	    "github/copilot.vim",
-	    "nvim-lua/plenary.nvim"
-	  }
-  },
+  -- dev tools
+  -- {
+  -- "CopilotC-Nvim/CopilotChat.nvim",
+  --  dependencies = {
+  --    "github/copilot.vim",
+  --    "nvim-lua/plenary.nvim"
+  --  }
+  -- },
 })
 
 -- Basic Colorscheme
 vim.opt.background = "dark"
-local default_colorschemes = { "habamax", "elflord", "evening", "industry", "koehler", "murphy", "pablo", "ron", "slate", "torte", "desert", "blue", "darkblue","retrobox","quiet"}
-math.randomseed(os.time())
-local chosen = default_colorschemes[math.random(#default_colorschemes)]
-vim.cmd("colorscheme " .. chosen)
+-- local default_colorschemes = { "habamax", "elflord", "evening", "industry", "koehler", "murphy", "pablo", "ron", "slate", "torte", "desert", "blue", "darkblue","retrobox","quiet"}
+-- math.randomseed(os.time())
+-- local chosen = default_colorschemes[math.random(#default_colorschemes)]
+-- vim.cmd("colorscheme " .. chosen)
+vim.cmd("colorscheme retrobox")
 
 -- Plugin Setups
 require("lualine").setup()
 require("nvim-tree").setup({update_focused_file = { enable = true }})
 require("gitsigns").setup()
-require("CopilotChat").setup({
-  context = {"files"},
-  sticky = {"@claude-3.7-sonnet", "#files", "#buffers"},
-})
-
+-- require("CopilotChat").setup({
+--   context = {"files"},
+--   sticky = {"@claude-3.7-sonnet", "#files", "#buffers"},
+-- })
+--
 map("n", ";c", "<cmd>CopilotChatToggle<CR>", { noremap = true, silent = true })
 
 -- Telescope keymaps
