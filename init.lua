@@ -26,6 +26,9 @@ vim.opt.synmaxcol = 200
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', { noremap = true, silent = true })
 vim.cmd('cnoreabbrev W w')
 vim.cmd('cnoreabbrev Wq wq')
+vim.cmd('cnoreabbrev Q q')
+vim.cmd('cnoreabbrev Qa qa')
+vim.cmd('cnoreabbrev Wqa wqa')
 
 local map = vim.keymap.set
 -- Window navigation (normal mode)
