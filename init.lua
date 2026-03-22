@@ -81,7 +81,18 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local follow_plugin_dir = vim.fn.stdpath("config") .. "/plugins/follow.nvim"
+
 require("lazy").setup({
+  {
+    dir = follow_plugin_dir,
+    name = "follow.nvim",
+    config = function()
+      local follow = require("follow")
+      follow.setup()
+      follow.start()
+    end,
+  },
   -- UI & navigation
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   { "nvim-tree/nvim-tree.lua",    dependencies = { "nvim-tree/nvim-web-devicons" } },
@@ -92,7 +103,7 @@ require("lazy").setup({
   { "williamboman/mason.nvim",           build        = ":MasonUpdate" },
   { "williamboman/mason-lspconfig.nvim", dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" } },
   { "neovim/nvim-lspconfig",             dependencies = { "williamboman/mason.nvim" } },
-  
+
   -- ─── Treesitter (Enhanced Syntax) ───────────────────────────────────────
   {
     "nvim-treesitter/nvim-treesitter",
