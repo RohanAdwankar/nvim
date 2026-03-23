@@ -90,7 +90,7 @@ require("lazy").setup({
     config = function()
       local follow = require("follow")
       follow.setup()
-      follow.start()
+      -- follow.start()
     end,
   },
   -- UI & navigation
