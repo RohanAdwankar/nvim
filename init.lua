@@ -1,6 +1,3 @@
--- init.lua
-
--- Leader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.opt.number            = true
@@ -12,17 +9,14 @@ vim.opt.shiftwidth        = 2
 vim.opt.tabstop           = 2
 vim.opt.smartindent       = true
 vim.opt.wrap              = false
-
--- Indent-based folding
 vim.opt.foldmethod      = "indent"
 vim.opt.foldlevelstart  = 99
+vim.opt.spell = true
+vim.opt.spelllang = { 'en_us' }
 
--- True Color & Syntax Highlighting
 vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
 vim.opt.synmaxcol = 200
-
--- Keymaps
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', { noremap = true, silent = true })
 vim.cmd('cnoreabbrev W w')
 vim.cmd('cnoreabbrev Wq wq')
