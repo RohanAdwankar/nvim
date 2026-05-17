@@ -17,7 +17,9 @@ vim.opt.spelllang = { 'en_us' }
 vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
 vim.opt.synmaxcol = 200
-local function format_jsonl()
+local function format_jsonl(opts)
+  opts = opts or {}
+
   if vim.fn.executable("jq") ~= 1 then
     vim.notify("jq is required to format jsonl", vim.log.levels.WARN)
     return
@@ -35,6 +37,10 @@ local function format_jsonl()
   end
 
   vim.api.nvim_buf_set_lines(0, 0, -1, false, formatted)
+
+  if opts.keep_unmodified then
+    vim.bo.modified = false
+  end
 end
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
@@ -52,6 +58,11 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.foldmethod = "indent"
     vim.opt_local.foldlevel = 0
     vim.api.nvim_buf_create_user_command(0, "FormatJsonl", format_jsonl, {})
+    vim.schedule(function()
+      if vim.bo.filetype == "jsonl" and vim.bo.modifiable and not vim.bo.modified then
+        format_jsonl({ keep_unmodified = true })
+      end
+    end)
   end,
 })
 
