@@ -175,7 +175,7 @@ require("lazy").setup({
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup {
-        ensure_installed = { "lua", "python", "go", "typescript" },
+        ensure_installed = { "lua", "python", "go", "typescript", "markdown", "markdown_inline" },
         highlight = { 
           enable = true,
         },
