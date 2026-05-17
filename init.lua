@@ -36,7 +36,23 @@ map("t", "<leader>j", [[<C-\><C-n><C-w>j]])
 map("t", "<leader>k", [[<C-\><C-n><C-w>k]])
 map("t", "<leader>l", [[<C-\><C-n><C-w>l]])
 -- Open terminal split
-map("n", "<leader>tt", ":belowright split | terminal<CR>", { silent = true })
+map("n", "<leader>T", ":belowright split | terminal<CR>", { silent = true })
+local function return_to_tmuxtui()
+  if not vim.env.TMUX then
+    vim.notify("not inside tmux", vim.log.levels.WARN)
+    return
+  end
+
+  local function tmux_value(format)
+    return vim.fn.system({ "tmux", "display-message", "-p", format }):gsub("%s+$", "")
+  end
+
+  vim.fn.system({ "tmux", "set-option", "-gq", "@tmuxtui-session", tmux_value("#{session_id}") })
+  vim.fn.system({ "tmux", "set-option", "-gq", "@tmuxtui-window", tmux_value("#{window_id}") })
+  vim.fn.system({ "tmux", "set-option", "-gq", "@tmuxtui-pane", tmux_value("#{pane_id}") })
+  vim.fn.system({ "tmux", "detach-client" })
+end
+map({ "n", "t" }, "<leader>t", return_to_tmuxtui, { silent = true, desc = "return to tmuxtui" })
 -- Buffer navigation
 map("n", "<Space>n", "<C-i>")
 map("n", "<Space>m", "<C-o>")
