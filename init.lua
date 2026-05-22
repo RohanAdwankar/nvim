@@ -172,14 +172,17 @@ require("lazy").setup({
   -- ─── Treesitter (Enhanced Syntax) ───────────────────────────────────────
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
+    branch = "main",
+    build = function()
+      require("nvim-treesitter").install({ "lua", "python", "go", "typescript", "markdown", "markdown_inline" }):wait(300000)
+    end,
     config = function()
-      require("nvim-treesitter.configs").setup {
-        ensure_installed = { "lua", "python", "go", "typescript", "markdown", "markdown_inline" },
-        highlight = { 
-          enable = true,
-        },
-      }
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "lua", "python", "go", "typescript", "markdown" },
+        callback = function()
+          vim.treesitter.start()
+        end,
+      })
     end,
   },
 
