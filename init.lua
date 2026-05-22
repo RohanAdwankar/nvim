@@ -214,6 +214,10 @@ vim.opt.background = "dark"
 -- vim.cmd("colorscheme " .. chosen)
 vim.cmd("colorscheme retrobox")
 
+for _, group in ipairs({ "Normal", "NormalNC", "NormalFloat", "FloatBorder", "EndOfBuffer", "SignColumn", "LineNr", "FoldColumn", "NonText" }) do
+  vim.api.nvim_set_hl(0, group, { bg = "none" })
+end
+
 -- Plugin Setups
 require("lualine").setup()
 require("nvim-tree").setup({
