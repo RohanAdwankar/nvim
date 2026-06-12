@@ -7,5 +7,6 @@ files in Terminal with `nvim`.
 ./macos/finder-app/install.sh
 ```
 
-The app is registered as the default editor for plain text, JSON, and Markdown.
+The app is registered as the default editor for text, common source/config
+formats, and generic files that otherwise have no useful Finder app.
 
