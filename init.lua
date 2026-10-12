@@ -151,6 +151,11 @@ local follow_plugin_dir = vim.fn.stdpath("config") .. "/plugins/follow.nvim"
 
 require("lazy").setup({
   {
+    dir = vim.fn.stdpath("config") .. "/plugins/diary.nvim",
+    name = "diary.nvim",
+    config = function() require("diary").setup() end,
+  },
+  {
     dir = follow_plugin_dir,
     name = "follow.nvim",
     config = function()
