@@ -28,11 +28,63 @@ end
 local function fresh(text, tail)
   diary.stop(api.nvim_get_current_buf())
   vim.cmd("enew!")
-  api.nvim_buf_set_lines(0, 0, -1, false, vim.list_extend({ text }, tail or {}))
-  api.nvim_win_set_cursor(0, { 1, #text })
+  api.nvim_buf_set_lines(0, 0, -1, false, vim.list_extend({ "" }, tail or {}))
+  api.nvim_win_set_cursor(0, { 1, 0 })
   requests = {}
   diary.toggle()
   drain()
+  assert(#requests == 0)
+  if text ~= "" then
+    api.nvim_buf_set_text(0, 0, 0, 0, 0, { text })
+    api.nvim_win_set_cursor(0, { 1, #text })
+    drain()
+  end
+end
+
+-- Enabling observes existing files without treating their contents as new input.
+for _, row in ipairs({ 1, 2 }) do
+  local path = vim.fn.tempname()
+  local saved = { "stored note", "another stored note" }
+  vim.fn.writefile(saved, path)
+  vim.cmd("edit! " .. vim.fn.fnameescape(path))
+  api.nvim_win_set_cursor(0, { row, 0 })
+  requests = {}
+  diary.toggle()
+  drain()
+  assert(#requests == 0, "enabling must not request a reply to existing content")
+  lines(saved)
+  assert(not vim.bo.modified)
+  assert(vim.deep_equal(api.nvim_win_get_cursor(0), { row, 0 }))
+
+  api.nvim_win_set_cursor(0, { 3 - row, 0 })
+  api.nvim_exec_autocmds("CursorMovedI", {})
+  vim.cmd("write")
+  drain()
+  assert(#requests == 0)
+  lines(saved)
+
+  api.nvim_buf_set_text(0, row - 1, 0, row - 1, 1, {})
+  drain()
+  assert(#requests == 0)
+  diary.toggle()
+  diary.toggle()
+  drain()
+  assert(#requests == 0)
+
+  -- New writing replies beneath the edited line and preserves other file text.
+  local expected = api.nvim_buf_get_lines(0, 0, -1, false)
+  local col = #expected[row]
+  expected[row] = expected[row] .. " plus new writing"
+  api.nvim_win_set_cursor(0, { row, col })
+  api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { " plus new writing" })
+  drain()
+  assert(#requests == 1)
+  complete(requests[1], "reply to new writing")
+  table.insert(expected, row + 1, "")
+  table.insert(expected, row + 2, "reply to new writing")
+  lines(expected)
+  diary.stop(api.nvim_get_current_buf())
+  vim.fn.delete(path)
 end
 
 for _, entry in ipairs({ "hello", "what a day" }) do

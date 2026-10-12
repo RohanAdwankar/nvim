@@ -164,8 +164,6 @@ function M.toggle()
     on_reload = function() if sessions[buf] == s then M.stop(buf) end end,
     on_detach = function() if sessions[buf] == s then M.stop(buf) end end,
   })
-  local row = api.nvim_win_get_cursor(0)[1] - 1
-  if vim.trim(api.nvim_get_current_line()) ~= "" then changed(s, row, false) end
 end
 
 function M.stop(buf)

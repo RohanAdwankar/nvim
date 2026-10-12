@@ -4,6 +4,9 @@
 buffer text, included when you save the file. It responds after a 200 ms typing
 pause, using low reasoning effort.
 
+Enabling waits for new writing; existing file contents, cursor movement, saving,
+and deletions do not start a reply.
+
 The lowercase command expands to `:Riddle`, since Neovim requires user commands
 to start with a capital letter.
 
