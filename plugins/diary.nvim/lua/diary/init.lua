@@ -181,7 +181,8 @@ function M.stop(buf)
 end
 
 function M.setup()
-  api.nvim_create_user_command("Diary", M.toggle, {})
+  api.nvim_create_user_command("Riddle", M.toggle, {})
+  vim.cmd([[cnoreabbrev <expr> riddle getcmdtype() == ':' && getcmdline() == 'riddle' ? 'Riddle' : 'riddle']])
   api.nvim_create_autocmd("CursorMovedI", {
     group = api.nvim_create_augroup("diary", { clear = true }),
     callback = function()

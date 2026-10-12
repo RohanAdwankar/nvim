@@ -1,8 +1,11 @@
 # diary.nvim
 
-`:Diary` toggles Codex's GPT-6-Luna diary in the current buffer. Replies are editable
+`:riddle` toggles Codex's GPT-6-Luna diary in the current buffer. Replies are editable
 buffer text, included when you save the file. It responds after a 200 ms typing
 pause, using low reasoning effort.
+
+The lowercase command expands to `:Riddle`, since Neovim requires user commands
+to start with a capital letter.
 
 The reply starts two lines below your entry. Pressing Enter or moving into the
 blank line in insert mode keeps a blank line between your writing and the reply.
